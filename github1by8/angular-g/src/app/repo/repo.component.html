@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-12 mt-5">
+        <div class="card border-danger mb-3">
+            <div class="card-header">
+                Repo for the user- {{userName}}
+
+                <div class="float-right">
+                    <button class="btn btn-secondary" type="button" [routerLink]="['/']"><i class="fa fa-mail-reply"></i> Go Back</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <span class="list-group-item list-group-item-action flex-column align-items-start"
+                        *ngFor="let repo of userRepos; let i= index">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{repo.name}}</h5>
+                            <small>~Updated On {{repo.updated_at | date:'mediumDate'}}</small>
+                        </div>
+                        <p class="mb-1">{{repo.description}}</p>
+                        <small>
+                            <i class="text-warning fa fa-star"></i>
+                            {{repo.stargazers_count}}
+
+                            <i class="ml-4 text-info fa fa-code-fork"></i>
+                            {{repo.forks}}
+                        </small>
+                    </span>
+                </div>
+                <div>
+                    <button [disabled]="isLoading" class="btn btn-primary btn-block mt-3" (click)="nextPage()">
+                        Load More <i class="fa fa-caret-down"></i></button>
+
+                </div>
+
+                <div class="loader" *ngIf="isLoading">Loading... <i class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i></div>
+            </div>
+        </div>
+    </div>
+</div>

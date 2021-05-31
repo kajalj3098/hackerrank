@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-12 mt-5">
+        <div class="card border-danger mb-3">
+            <div class="card-header">
+                <div class="float-left">
+                        Github- Users List
+                </div>
+                <div class="float-right">
+                    <input type="search"  #searchText (keyup)="search($event, searchText.value)" class="form-control w100" placeholder="Search User and Press Enter">
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">User Id</th>
+                            <th scope="col">Profile Image</th>
+                            <th scope="col">Repos</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="userArr.length>0">
+                        <tr class="table-active" *ngFor="let user of userArr">
+                            <td>{{user.id}}</td>
+                            <td>{{user.login}}</td>
+                            <td> <img class="img-fluid user-img" [src]="user.avatar_url" alt=""></td>
+                            <td> <button type="button" class="btn btn-link" [routerLink]="['/repo',user.login]">View repository</button></td>
+                            <!-- <td>{{user.repos_url}}</td> -->
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="userArr.length === 0">
+                        <tr class="text-center">
+                            <td colspan="4">No User Found</td>
+                        </tr>
+                    </tbody>
+                    <tfoot *ngIf="!isSingleUserSearch">
+                        <tr>
+                            <td colspan="4">
+                                <button [disabled]="isLoading" class="btn btn-primary btn-block mt-3"
+                                    (click)="nextPage()">
+                                    Load More <i class="fa fa-caret-down"></i></button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="loader" *ngIf="isLoading">Loading... <i class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
